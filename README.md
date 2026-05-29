@@ -1,4 +1,4 @@
-# CalAI Tracker - Умный дневник питания с ИИ
+# SeeFood - Умный дневник питания с ИИ
 
 ![CalAI Tracker](https://img.shields.io/badge/CalAI-Tracker-green)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
@@ -229,4 +229,4 @@ CalAI-Tracker/
 
 ---
 
-**CalAI Tracker** - умный помощник для здорового питания 🥗
+SeeFood - умный помощник для здорового питания 🥗
