@@ -1,0 +1,404 @@
+/* =============================
+   ONBOARDING STYLES
+============================= */
+
+.onboarding {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  max-width: 430px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Progress bar */
+.ob-progress {
+  height: 3px;
+  background: var(--bg3);
+  flex-shrink: 0;
+}
+
+.ob-progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.4s ease;
+  width: 0%;
+  border-radius: 0 99px 99px 0;
+}
+
+/* Steps */
+.ob-step {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  padding: 28px 24px 40px;
+  animation: obSlideIn 0.3s ease;
+  overflow-y: auto;
+}
+
+.ob-step.active {
+  display: flex;
+}
+
+@keyframes obSlideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes obSlideBack {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.ob-step.back {
+  animation: obSlideBack 0.3s ease;
+}
+
+/* Back button */
+.ob-back {
+  margin-bottom: 16px;
+}
+
+.ob-back button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 18px;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.ob-back button:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+/* Logo (welcome step) */
+.ob-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-top: 20px;
+}
+
+.ob-logo-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.ob-brand {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.ob-tagline {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Center area */
+.ob-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Headings */
+.ob-heading {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.ob-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* Chips / selection buttons */
+.ob-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.ob-chips.multi {
+  /* multi-select style same */
+}
+
+.ob-chip {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 16px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ob-chip:hover {
+  border-color: var(--green);
+  background: rgba(68, 255, 0, 0.05);
+}
+
+.ob-chip.selected {
+  border-color: var(--green);
+  background: rgba(68, 255, 0, 0.12);
+  color: var(--green);
+}
+
+.ob-chip.large {
+  padding: 20px;
+  font-size: 17px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Input group */
+.ob-input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.ob-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ob-date-sep {
+  font-size: 24px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.ob-input {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 14px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 70px;
+}
+
+.ob-input:focus {
+  border-color: var(--green);
+}
+
+.ob-input.big {
+  width: 140px;
+  font-size: 36px;
+  font-family: var(--font-display);
+  padding: 20px;
+}
+
+.ob-unit-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ob-unit {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Actions */
+.ob-actions {
+  padding-top: 8px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.ob-btn-primary {
+  width: 100%;
+  background: var(--green);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.ob-btn-primary:hover { opacity: 0.9; }
+.ob-btn-primary:active { transform: scale(0.98); opacity: 0.85; }
+
+/* ============================
+   DIET CARDS
+============================ */
+.diet-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diet-card {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s;
+  color: var(--text);
+  font-family: var(--font-body);
+  width: 100%;
+}
+
+.diet-card:hover {
+  border-color: var(--green);
+  background: rgba(68, 255, 0, 0.05);
+}
+
+.diet-card.active-diet {
+  border-color: var(--green);
+  background: rgba(68, 255, 0, 0.1);
+}
+
+.diet-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.diet-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.diet-desc {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ============================
+   ADD MODAL
+============================ */
+.add-modal-content {
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 24px 20px 40px;
+}
+
+.add-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.add-option-btn {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 20px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.add-option-btn:hover {
+  border-color: var(--green);
+  background: rgba(68, 255, 0, 0.07);
+}
+
+
+
+/* ============================
+   NAV CENTER BUTTON (+)
+============================ */
+.nav-center {
+  position: relative;
+  margin-top: -18px;
+}
+
+.nav-icon-plus {
+  width: 52px;
+  height: 52px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 300;
+  color: white;
+  box-shadow: 0 4px 16px rgba(68, 255, 0, 0.4);
+  line-height: 1;
+}
+
+.nav-center .nav-label {
+  display: none;
+}
+
+/* Achievements */
+#achievements-content .achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+#achievements-content .achievement-item:last-child {
+  border-bottom: none;
+}
+
+.achievement-badge {
+  font-size: 24px;
+}

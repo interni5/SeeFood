@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>SeeFood — Умный дневник питания</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/onboarding.css">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+     ONBOARDING FLOW
+════════════════════════════════════════════ -->
+  <div id="onboarding" class="onboarding">
+
+    <!-- Progress Bar -->
+    <div class="ob-progress">
+      <div class="ob-progress-fill" id="ob-progress-fill"></div>
+    </div>
+
+    <!-- Step 0: Welcome -->
+    <div class="ob-step active" data-step="0">
+      <div class="ob-logo">
+        <div class="ob-logo-icon"></div>
+        <h1 class="ob-brand">SeeFood</h1>
+      </div>
+      <div class="ob-center">
+        <h2 class="ob-heading">Привет! Давай познакомимся</h2>
+        <p class="ob-sub">Несколько вопросов помогут настроить твой личный план питания</p>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Начать →</button>
+      </div>
+    </div>
+
+    <!-- Step 1: Goal -->
+    <div class="ob-step" data-step="1">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Твоя цель по весу?</h2>
+      <div class="ob-chips" id="ob-goals">
+        <button class="ob-chip" data-key="goal" data-val="lose" onclick="selectChip(this)">Хочу похудеть</button>
+        <button class="ob-chip" data-key="goal" data-val="eat_better" onclick="selectChip(this)">Хочу питаться
+          лучше</button>
+        <button class="ob-chip" data-key="goal" data-val="muscle" onclick="selectChip(this)">Хочу больше мышц</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: What's important -->
+    <div class="ob-step" data-step="2">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Что ещё важно?</h2>
+      <p class="ob-sub">Можно выбрать несколько</p>
+      <div class="ob-chips multi" id="ob-important">
+        <button class="ob-chip" data-key="important" data-val="energy" onclick="toggleChip(this)">Больше
+          энергии</button>
+        <button class="ob-chip" data-key="important" data-val="mood" onclick="toggleChip(this)">Стабильное
+          настроение</button>
+        <button class="ob-chip" data-key="important" data-val="comfort" onclick="toggleChip(this)">Комфорт в
+          теле</button>
+        <button class="ob-chip" data-key="important" data-val="structure" onclick="toggleChip(this)">Больше
+          структуры</button>
+        <button class="ob-chip" data-key="important" data-val="mental" onclick="toggleChip(this)">Ментальный
+          баланс</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Gender -->
+    <div class="ob-step" data-step="3">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Пол?</h2>
+      <div class="ob-chips" id="ob-gender">
+        <button class="ob-chip large" data-key="gender" data-val="female" onclick="selectChip(this)">Женский</button>
+        <button class="ob-chip large" data-key="gender" data-val="male" onclick="selectChip(this)">Мужской</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Birth date -->
+    <div class="ob-step" data-step="4">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Дата рождения?</h2>
+      <div class="ob-input-group">
+        <div class="ob-date-row">
+          <input type="number" class="ob-input" id="ob-day" placeholder="ДД" min="1" max="31" maxlength="2">
+          <span class="ob-date-sep">/</span>
+          <input type="number" class="ob-input" id="ob-month" placeholder="ММ" min="1" max="12" maxlength="2">
+          <span class="ob-date-sep">/</span>
+          <input type="number" class="ob-input" id="ob-year" placeholder="ГГГГ" min="1920" max="2015" maxlength="4">
+        </div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Height -->
+    <div class="ob-step" data-step="5">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Рост?</h2>
+      <div class="ob-input-group">
+        <div class="ob-unit-input">
+          <input type="number" class="ob-input big" id="ob-height" placeholder="177" min="100" max="250">
+          <span class="ob-unit">см</span>
+        </div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Current weight -->
+    <div class="ob-step" data-step="6">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Вес?</h2>
+      <div class="ob-input-group">
+        <div class="ob-unit-input">
+          <input type="number" class="ob-input big" id="ob-weight" placeholder="75" min="30" max="300" step="0.1">
+          <span class="ob-unit">кг</span>
+        </div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 7: Target weight -->
+    <div class="ob-step" data-step="7">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Целевой вес?</h2>
+      <div class="ob-input-group">
+        <div class="ob-unit-input">
+          <input type="number" class="ob-input big" id="ob-target-weight" placeholder="65" min="30" max="300"
+            step="0.1">
+          <span class="ob-unit">кг</span>
+        </div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 8: More priorities -->
+    <div class="ob-step" data-step="8">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Что ещё важно?</h2>
+      <p class="ob-sub">Можно выбрать несколько</p>
+      <div class="ob-chips multi">
+        <button class="ob-chip" data-key="priorities" data-val="balance" onclick="toggleChip(this)">⚖️ Баланс в
+          жизни</button>
+        <button class="ob-chip" data-key="priorities" data-val="less_stress" onclick="toggleChip(this)">😌 Меньше
+          стресса с едой</button>
+        <button class="ob-chip" data-key="priorities" data-val="hormones" onclick="toggleChip(this)">🔬 Гормональный
+          баланс</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 9: Challenges -->
+    <div class="ob-step" data-step="9">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">Что сложно?</h2>
+      <p class="ob-sub">Можно выбрать несколько</p>
+      <div class="ob-chips multi">
+        <button class="ob-chip" data-key="challenges" data-val="routine" onclick="toggleChip(this)">🔄 Рутина</button>
+        <button class="ob-chip" data-key="challenges" data-val="meal_plan" onclick="toggleChip(this)">📅 Планирование
+          еды</button>
+        <button class="ob-chip" data-key="challenges" data-val="portions" onclick="toggleChip(this)">🍽 Порции</button>
+        <button class="ob-chip" data-key="challenges" data-val="support" onclick="toggleChip(this)">🤝
+          Поддержка</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="obNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 10: Activity -->
+    <div class="ob-step" data-step="10">
+      <div class="ob-back"><button onclick="obBack()">←</button></div>
+      <h2 class="ob-heading">День обычно:</h2>
+      <div class="ob-chips" id="ob-activity">
+        <button class="ob-chip" data-key="activity" data-val="sedentary" onclick="selectChip(this)">🪑 Сидячий</button>
+        <button class="ob-chip" data-key="activity" data-val="light" onclick="selectChip(this)">🚶 Немного
+          активный</button>
+        <button class="ob-chip" data-key="activity" data-val="moderate" onclick="selectChip(this)">🏃 Часто
+          активный</button>
+        <button class="ob-chip" data-key="activity" data-val="active" onclick="selectChip(this)">🏋️ Регулярные
+          тренировки</button>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-btn-primary" onclick="finishOnboarding()">Готово →</button>
+      </div>
+    </div>
+
+  </div><!-- /onboarding -->
+
+
+  <!-- ═══════════════════════════════════════════
+     MAIN APP
+════════════════════════════════════════════ -->
+  <div id="app" class="app" style="display:none">
+
+    <!-- HEADER -->
+    <header class="top-header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>SeeFood</h1>
+        </div>
+        <button class="profile-btn" onclick="showProfile()" aria-label="Профиль">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.5C17.2467 21.5 21.5 17.2467 21.5 12C21.5 6.7533 17.2467 2.5 12 2.5C6.7533 2.5 2.5 6.7533 2.5 12C2.5 17.2467 6.7533 21.5 12 21.5Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M6.3739 19.6528C6.90736 18.6208 7.71438 17.7554 8.70668 17.1513C9.69897 16.5472 10.8383 16.2277 12 16.2277C13.1617 16.2277 14.301 16.5472 15.2933 17.1513C16.2857 17.7554 17.0926 18.6208 17.6261 19.6528"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 13.0556C13.8772 13.0556 15.3989 11.5339 15.3989 9.6567C15.3989 7.77954 13.8772 6.25781 12 6.25781C10.1228 6.25781 8.60114 7.77954 8.60114 9.6567C8.60114 11.5339 10.1228 13.0556 12 13.0556Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+
+      <!-- ─── TAB: ДАШБОРД ─── -->
+      <div id="tab-dashboard" class="section active">
+        <div class="calories-ring">
+          <svg class="ring" width="280" height="280" viewBox="0 0 280 280">
+            <defs>
+              <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#2ECC8F" />
+                <stop offset="100%" stop-color="#27AE60" />
+              </linearGradient>
+            </defs>
+            <circle cx="140" cy="140" r="118" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-opacity="1.0" />
+            <circle id="ring-fill" cx="140" cy="140" r="118" fill="none" stroke="#44FF00" stroke-width="15"
+              stroke-linecap="round" stroke-dasharray="741" stroke-dashoffset="741" transform="rotate(-90 140 140)"
+              style="transition:stroke-dashoffset .9s ease" />
+            <text x="140" y="128" text-anchor="middle" fill="#E6EDF3" font-family="Unbounded,sans-serif" font-size="42"
+              font-weight="600" id="ring-kcal">0</text>
+            <text x="140" y="155" text-anchor="middle" fill="#8B949E" font-family="Inter,sans-serif" font-size="15">из
+              <tspan id="ring-goal">2000</tspan> ккал
+            </text>
+            <text x="140" y="180" text-anchor="middle" fill="#2ECC8F" font-family="Inter,sans-serif" font-size="14"
+              id="ring-left">осталось 2000</text>
+          </svg>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="val blue" id="dash-protein">0г</div>
+            <div class="lbl">Белки</div>
+          </div>
+          <div class="stat-card">
+            <div class="val amber" id="dash-fat">0г</div>
+            <div class="lbl">Жиры</div>
+          </div>
+          <div class="stat-card">
+            <div class="val red" id="dash-carbs">0г</div>
+            <div class="lbl">Углеводы</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Последние 7 дней</div>
+          <div class="mini-chart" id="week-chart"></div>
+        </div>
+        <div class="macro-bar">
+          <div class="macro-row"><span>Белки</span><span id="pb-lbl" class="blue">0 / 150г</span></div>
+          <div class="track">
+            <div class="fill blue-bg" id="pb" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="macro-bar">
+          <div class="macro-row"><span>Жиры</span><span id="fb-lbl" class="amber">0 / 65г</span></div>
+          <div class="track">
+            <div class="fill amber-bg" id="fb" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="macro-bar">
+          <div class="macro-row"><span>Углеводы</span><span id="cb-lbl" class="red">0 / 250г</span></div>
+          <div class="track">
+            <div class="fill red-bg" id="cb" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TAB: ДНЕВНИК ПИТАНИЯ ─── -->
+      <div id="tab-diary" class="section">
+        <div class="ai-box">
+          <div class="ai-label"><span></span> ИИ-помощник по питанию</div>
+          <div class="ai-row">
+            <input type="text" id="ai-food-input" placeholder="Например: гречка 200г, курица 150г">
+            <select id="meal-select">
+              <option value="Завтрак">Завтрак</option>
+              <option value="Обед" selected>Обед</option>
+              <option value="Ужин">Ужин</option>
+              <option value="Перекус">Перекус</option>
+            </select>
+            <button id="ai-btn" onclick="analyzeFood()">
+              <span></span> Добавить
+            </button>
+          </div>
+          <div class="ai-result" id="ai-result"></div>
+        </div>
+        <div id="meals-container"></div>
+      </div>
+
+      <!-- ─── TAB: ВЕС ─── -->
+      <div id="tab-weight" class="section">
+        <div class="card">
+          <div class="card-title">Динамика веса</div>
+          <div id="weight-chart" style="min-height:80px"></div>
+        </div>
+        <!-- Успехи -->
+        <div class="card" id="weight-achievements">
+          <div class="card-title">Успехи</div>
+          <div id="achievements-content" style="color:var(--muted);font-size:13px">Добавляй вес, чтобы отслеживать
+            прогресс</div>
+        </div>
+        <div class="weight-row">
+          <input type="number" id="weight-input" placeholder="Введите вес (кг)" step="0.1" min="30" max="300">
+          <button onclick="addWeight()"><span></span> Обновить вес</button>
+        </div>
+        <div id="weight-list"></div>
+      </div>
+
+      <!-- ─── TAB: ЦЕЛИ / ДИЕТЫ AI ─── -->
+      <div id="tab-goals" class="section">
+        <!-- AI Диеты -->
+        <div class="card">
+          <div class="card-title">Диеты AI</div>
+          <div class="diet-cards">
+            <button class="diet-card" onclick="applyDiet('balanced')">
+              <div class="diet-icon"></div>
+              <div class="diet-name">Сбалансированное питание</div>
+              <div class="diet-desc">Оптимальный баланс БЖУ</div>
+            </button>
+            <button class="diet-card" onclick="applyDiet('fasting')">
+              <div class="diet-icon"></div>
+              <div class="diet-name">Голодание</div>
+              <div class="diet-desc">Интервальное 16:8</div>
+            </button>
+            <button class="diet-card" onclick="applyDiet('high_protein')">
+              <div class="diet-icon"></div>
+              <div class="diet-name">Высокобелковое</div>
+              <div class="diet-desc">Для роста мышц</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"> Мои цели</div>
+          <div class="goal-row">
+            <label>Калории (ккал)</label>
+            <input type="number" id="goal-kcal" value="2000">
+          </div>
+          <div class="goal-row">
+            <label>Белки (г)</label>
+            <input type="number" id="goal-protein" value="150">
+          </div>
+          <div class="goal-row">
+            <label>Жиры (г)</label>
+            <input type="number" id="goal-fat" value="65">
+          </div>
+          <div class="goal-row">
+            <label>Углеводы (г)</label>
+            <input type="number" id="goal-carbs" value="250">
+          </div>
+          <div class="goal-row">
+            <label>Цель по весу (кг)</label>
+            <input type="number" id="goal-weight" value="70" step="0.5">
+          </div>
+          <button class="save-btn" onclick="saveGoals()">Сохранить цели</button>
+        </div>
+
+        <div class="tip-box" id="ai-tip">
+          <strong>ИИ-совет</strong>
+          Нажмите кнопку ниже, чтобы получить персональный совет по питанию.
+        </div>
+        <button class="outline-btn" onclick="getAiTip()">Получить совет от ИИ</button>
+      </div>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="dashboard" onclick="showTab('dashboard', this)">
+        <span class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.8542 2.75H9.68749C6.84936 2.75 4.5486 5.05076 4.5486 7.88889V16.1111C4.5486 18.9492 6.84936 21.25 9.68749 21.25H15.8542C18.6923 21.25 20.993 18.9492 20.993 16.1111V7.88889C20.993 5.05076 18.6923 2.75 15.8542 2.75Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3.00694 8.40277H6.09028" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M3.00694 15.5972H6.09028" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M16.6697 16.7445C16.6697 15.0918 14.8273 13.7487 13.1746 13.7487C11.5219 13.7487 9.67955 15.0918 9.67955 16.7445"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M13.1746 11.3678C14.4714 11.3678 15.5227 10.3165 15.5227 9.01973C15.5227 7.72291 14.4714 6.67163 13.1746 6.67163C11.8777 6.67163 10.8265 7.72291 10.8265 9.01973C10.8265 10.3165 11.8777 11.3678 13.1746 11.3678Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="nav-label">Дневник</span>
+      </button>
+      <button class="nav-item" data-tab="weight" onclick="showTab('weight', this)">
+        <span class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_1356_570)">
+              <path
+                d="M8.75377 3.22541L3.22539 8.75378C1.43256 10.5466 1.43256 13.4534 3.22539 15.2462L8.75377 20.7746C10.5466 22.5674 13.4534 22.5674 15.2462 20.7746L20.7746 15.2462C22.5674 13.4534 22.5674 10.5466 20.7746 8.75378L15.2462 3.22541C13.4534 1.43257 10.5466 1.43257 8.75377 3.22541Z"
+                stroke="currentColor" stroke-width="1.5" />
+              <path
+                d="M10.5759 8.15074L8.15075 10.5759C7.36426 11.3624 7.36426 12.6376 8.15075 13.4241L10.5759 15.8493C11.3624 16.6357 12.6376 16.6357 13.4241 15.8493L15.8493 13.4241C16.6358 12.6376 16.6358 11.3624 15.8493 10.5759L13.4241 8.15074C12.6376 7.36425 11.3624 7.36425 10.5759 8.15074Z"
+                stroke="currentColor" stroke-width="1.5" />
+            </g>
+            <defs>
+              <clipPath id="clip0_1356_570">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </span>
+        <span class="nav-label">Вес</span>
+      </button>
+      <button class="nav-item nav-center" data-tab="add" onclick="showAddModal()">
+        <span class="nav-icon-plus">+</span>
+      </button>
+      <button class="nav-item" data-tab="diary" onclick="showTab('diary', this)">
+        <span class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21.25 9.71429C21.2308 10.5693 20.9537 11.3845 20.473 12C19.0578 14.0114 15.7925 15.4286 12 15.4286C8.2075 15.4286 4.94225 14.0114 3.527 12C3.04631 11.3845 2.76918 10.5693 2.75 9.71429C2.75 6.56 6.894 4 12 4C17.106 4 21.25 6.56 21.25 9.71429Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M17.7224 9.71428C17.7106 10.1402 17.5391 10.5463 17.2417 10.8529C16.3662 11.8548 14.3462 12.5607 12 12.5607C9.65381 12.5607 7.6338 11.8548 6.75827 10.8529C6.4609 10.5463 6.28945 10.1402 6.27759 9.71428C6.27759 8.14304 8.84123 6.86783 12 6.86783C15.1588 6.86783 17.7224 8.14304 17.7224 9.71428Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M21.25 9.71428V14.2857C21.25 17.44 17.106 20 12 20C6.894 20 2.75 17.44 2.75 14.2857V9.71428"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="nav-label">Питание</span>
+      </button>
+      <button class="nav-item" data-tab="goals" onclick="showTab('goals', this)">
+        <span class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.6605 10.6605C10.3037 11.0152 10.1021 11.4969 10.1 12C10.1 12.5039 10.3002 12.9872 10.6565 13.3435C11.0128 13.6998 11.4961 13.9 12 13.9C12.5031 13.8979 12.9848 13.6963 13.3395 13.3395"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 6.3C10.8726 6.3 9.7706 6.6343 8.83324 7.26063C7.89588 7.88695 7.1653 8.77717 6.73388 9.81871C6.30246 10.8602 6.18958 12.0063 6.40951 13.112C6.62945 14.2177 7.17232 15.2334 7.96948 16.0305C8.76664 16.8277 9.78228 17.3705 10.888 17.5905C11.9937 17.8104 13.1397 17.6975 14.1813 17.2661C15.2228 16.8347 16.113 16.1041 16.7394 15.1668C17.3657 14.2294 17.7 13.1274 17.7 12"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 2.5C10.1211 2.5 8.28435 3.05717 6.72209 4.10104C5.15982 5.14491 3.94218 6.62861 3.22315 8.36451C2.50412 10.1004 2.31598 12.0105 2.68254 13.8534C3.0491 15.6962 3.95389 17.3889 5.28249 18.7175C6.61109 20.0461 8.30383 20.9509 10.1466 21.3175C11.9895 21.684 13.8996 21.4959 15.6355 20.7769C17.3714 20.0578 18.8551 18.8402 19.899 17.2779C20.9428 15.7156 21.5 13.8789 21.5 12"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15.5245 8.4755L12.95 11.05" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M20.9395 5.84399L17.7 6.29999L18.156 3.0605C18.1596 3.02273 18.1517 2.98476 18.1335 2.95148C18.1153 2.9182 18.0876 2.89113 18.0538 2.87376C18.0201 2.85638 17.982 2.8495 17.9443 2.854C17.9066 2.8585 17.8712 2.87417 17.8425 2.899L15.6955 5.03649C15.475 5.25866 15.3127 5.53189 15.2232 5.83187C15.1337 6.13185 15.1197 6.4493 15.1825 6.75599L15.5245 8.47549L17.244 8.81749C17.5507 8.88026 17.8681 8.86627 18.1681 8.77677C18.4681 8.68727 18.7413 8.52504 18.9635 8.30449L21.101 6.15749C21.1258 6.12881 21.1415 6.09335 21.146 6.05568C21.1505 6.01802 21.1436 5.97987 21.1262 5.94614C21.1089 5.91242 21.0818 5.88467 21.0485 5.86646C21.0152 5.84826 20.9773 5.84043 20.9395 5.84399Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="nav-label">Цели</span>
+      </button>
+    </nav>
+
+  </div><!-- /app -->
+
+  <!-- ADD MODAL -->
+  <div id="add-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeAddModal()">
+    <div class="modal add-modal-content">
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+      <h2>Добавить</h2>
+      <div class="add-options">
+        <button class="add-option-btn"
+          onclick="closeAddModal();showTab('diary',document.querySelector('[data-tab=diary]'));setTimeout(()=>document.getElementById('ai-food-input').focus(),100)">
+          <span>Завтрак</span>
+        </button>
+        <button class="add-option-btn"
+          onclick="closeAddModal();showTab('diary',document.querySelector('[data-tab=diary]'));document.getElementById('meal-select').value='Обед';setTimeout(()=>document.getElementById('ai-food-input').focus(),100)">
+          <span>Обед</span>
+        </button>
+        <button class="add-option-btn"
+          onclick="closeAddModal();showTab('diary',document.querySelector('[data-tab=diary]'));document.getElementById('meal-select').value='Ужин';setTimeout(()=>document.getElementById('ai-food-input').focus(),100)">
+          <span>Ужин</span>
+        </button>
+        <button class="add-option-btn"
+          onclick="closeAddModal();showTab('weight',document.querySelector('[data-tab=weight]'));setTimeout(()=>document.getElementById('weight-input').focus(),100)">
+          <span>Обновить вес</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Загрузка модулей в правильном порядке -->
+  <script src="static/js/modules/state.js"></script>
+  <script src="static/js/modules/api.js"></script>
+  <script src="static/js/modules/ui.js"></script>
+  <script src="static/js/modules/app.js"></script>
+  <script src="static/js/onboarding.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+
+</html>
