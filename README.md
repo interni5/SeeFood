@@ -64,7 +64,7 @@ static/
 ### 1. Клонирование репозитория
 ```bash
 git clone <repository-url>
-cd CalAI-Tracker
+cd SeeFood
 ```
 
 ### 2. Установка зависимостей
