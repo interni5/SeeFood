@@ -1,6 +1,6 @@
 # SeeFood - Умный дневник питания с ИИ
 
-![CalAI Tracker](https://img.shields.io/badge/CalAI-Tracker-green)
+![SeeFood](https://img.shields.io/badge/CalAI-Tracker-green)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
 ![Flask](https://img.shields.io/badge/Flask-2.3+-lightgrey)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
