@@ -88,16 +88,6 @@ pip install -r requirements_new.txt
 OPENROUTER_API_KEY = "ваш_api_ключ_здесь"
 ```
 
-### 4. Запуск приложения
-```bash
-# Запуск нового backend
-python app_new.py
-
-# Или запуск оригинального backend
-python app.py
-```
-
-Приложение будет доступно по адресу: http://127.0.0.1:5000
 
 ##  Использование
 
