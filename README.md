@@ -142,7 +142,7 @@ pytest tests/ --cov=app_new --cov-report=html
 ##  Структура проекта
 
 ```
-CalAI-Tracker/
+SeeFood/
 ├── app_improved.py     # backend
 ├── requirements.txt    # Оригинальные зависимости
 ├── requirements_new.txt # Новые зависимости
