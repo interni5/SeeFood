@@ -143,8 +143,7 @@ pytest tests/ --cov=app_new --cov-report=html
 
 ```
 CalAI-Tracker/
-├── app.py              # Оригинальный backend
-├── app_improved.py     # Улучшенный backend
+├── app_improved.py     # backend
 ├── requirements.txt    # Оригинальные зависимости
 ├── requirements_new.txt # Новые зависимости
 ├── README.md          # Документация
